@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/BarcodeScanner"
+        android:icon="@drawable/barcode"
+        android:title="Scanner"/>
+
+    <item
+        android:id="@+id/Fridge"
+        android:icon="@drawable/fridge"
+        android:title="Fridge" />
+
+    <item
+        android:id="@+id/Freezer"
+        android:icon="@drawable/freezer"
+        android:title="Freezer" />
+
+    <item
+        android:id="@+id/Pantry"
+        android:icon="@drawable/pantry"
+        android:title="Pantry" />
+</menu>
