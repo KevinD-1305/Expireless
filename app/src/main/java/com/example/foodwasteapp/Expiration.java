@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,10 +21,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.time.Year;
 import java.util.Calendar;
 
-public class Expiration extends AppCompatActivity {
+public class Expiration extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
 
     private static final String TAG = "Expiration activity";
     private TextView mDisplayDate;
+    private TextView mitemQuantity;
+
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,5 +92,18 @@ public class Expiration extends AppCompatActivity {
                 mDisplayDate.setText(date);
             }
         };
+
+        mitemQuantity = findViewById(R.id.quantity);
+        NumberPicker numberPicker = findViewById(R.id.itemQuantity);
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(10);
+        numberPicker.setOnValueChangedListener(this);  //Possibly do not need
+
     }
+    //Possibly do not need
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        mitemQuantity.setText("Old value =" + oldVal+" New value = "+newVal);
+    }
+
 }
