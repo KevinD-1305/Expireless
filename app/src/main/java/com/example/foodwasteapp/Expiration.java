@@ -9,24 +9,36 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
 
 import java.time.Year;
 import java.util.Calendar;
 
-public class Expiration extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
+public class Expiration extends AppCompatActivity //implements NumberPicker.OnValueChangeListener
+{
 
     private static final String TAG = "Expiration activity";
     private TextView mDisplayDate;
     private TextView mitemQuantity;
+    private TextView mStorage;
+    EditText editItemName;
+    Button buttonAdd;
+    Spinner spinnerQuantity;
 
+    DatabaseReference databaseItems;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +80,7 @@ public class Expiration extends AppCompatActivity implements NumberPicker.OnValu
             }
         });
 
-        mDisplayDate = (TextView) findViewById(R.id.expiration_date);
+        mDisplayDate = findViewById(R.id.expiration_date);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,18 +104,18 @@ public class Expiration extends AppCompatActivity implements NumberPicker.OnValu
                 mDisplayDate.setText(date);
             }
         };
-
         mitemQuantity = findViewById(R.id.quantity);
         NumberPicker numberPicker = findViewById(R.id.itemQuantity);
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(10);
-        numberPicker.setOnValueChangedListener(this);  //Possibly do not need
+        //numberPicker.setOnValueChangedListener(this);  //Possibly do not need
 
+        mStorage = findViewById(R.id.Storage);
+        NumberPicker picker = findViewById(R.id.itemStorage);
+        picker.setMinValue(0);
+        picker.setMaxValue(2);
+        picker.setDisplayedValues( new String [] { "Fridge", "Freezer", "Pantry"});
     }
-    //Possibly do not need
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        mitemQuantity.setText("Old value =" + oldVal+" New value = "+newVal);
-    }
+
 
 }

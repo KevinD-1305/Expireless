@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.foodwasteapp">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,24 +13,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".URLSearch">
+
+        </activity>
+
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
-        <activity android:name=".Scanner">
+
+        <activity android:name=".Scanner"/>
+
+        <activity android:name=".Expiration">
+
+
+        </activity>
+        <activity android:name=".Expiration2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Expiration">
-
-        </activity>
         <activity android:name=".BarcodeScanner" />
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
-        <activity android:name=".Fridge"/>
-
+        <activity android:name=".Fridge" />
     </application>
 
 </manifest>

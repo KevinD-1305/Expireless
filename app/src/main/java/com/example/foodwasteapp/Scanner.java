@@ -67,7 +67,7 @@ public class Scanner extends AppCompatActivity {
 
         private void setupCamera() {
         btn_start_again = (Button)findViewById(R.id.btn_again);
-        btn_start_again.setEnabled(isDetected);
+        btn_start_again.setEnabled(!isDetected);
         btn_start_again.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -104,7 +104,7 @@ public class Scanner extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Scanner.this, "", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Scanner.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -119,9 +119,9 @@ public class Scanner extends AppCompatActivity {
                 int value_type = item.getValueType();
                 switch (value_type)
                 {
-                    case FirebaseVisionBarcode.TYPE_TEXT:
+                    case FirebaseVisionBarcode.TYPE_PRODUCT:
                     {
-                        createDialog(item.getRawValue());
+                        createDialog(item.getDisplayValue());
                     }
                     break;
                     case FirebaseVisionBarcode.TYPE_URL:
@@ -170,7 +170,7 @@ public class Scanner extends AppCompatActivity {
                 .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
                 .setHeight(frame.getSize().getHeight())
                 .setWidth(frame.getSize().getWidth())
-                .setRotation(frame.getRotation())
+                //.setRotation(frame.getRotation())
                 .build();
         return FirebaseVisionImage.fromByteArray(data,metadata);
     }

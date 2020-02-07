@@ -30,9 +30,10 @@
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/btn_again"
-            android:text = "Scan Again"
+            android:text = "@string/scan_again"
             android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
