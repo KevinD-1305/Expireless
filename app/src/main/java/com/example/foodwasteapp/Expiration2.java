@@ -23,9 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Expiration2 extends AppCompatActivity
 {
-    EditText editItemName;
-    Button buttonAdd;
-    Spinner spinnerQuantity;
+    private EditText editItemName;
+    private Button buttonAdd;
+    private Spinner spinnerQuantity;
 
     DatabaseReference databaseItems;
 

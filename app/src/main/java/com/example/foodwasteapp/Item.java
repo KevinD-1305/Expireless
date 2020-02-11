@@ -1,30 +1,46 @@
 package com.example.foodwasteapp;
 
+import android.util.Log;
+
 public class Item {
 
-    String itemId;
-    String itemQuantity;
-    String itemStorage;
+    private String Id;
+    private String Quantity;
+    private String Storage;
 
-    public Item(){
+    public Item() {
 
     }
 
     public Item(String itemId, String itemQuantity, String itemStorage) {
-        this.itemId = itemId;
-        this.itemQuantity = itemQuantity;
-        this.itemStorage= itemStorage;
+        this.Id = itemId;
+        this.Quantity = itemQuantity;
+        this.Storage = itemStorage;
+        Log.d("Set config", "no adapter");
+
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getId() {
+        return Id;
     }
 
-    public String getItemQuantity() {
-        return itemQuantity;
+    public void setId(String itemId) {
+        this.Id = itemId;
     }
 
-    public String getItemStorage() {
-        return itemStorage;
+    public String getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(String itemQuantity) {
+        this.Quantity = itemQuantity;
+    }
+
+    public String getStorage() {
+        return Storage;
+    }
+
+    public void setStorage(String itemStorage) {
+        this.Storage = itemStorage;
     }
 }
