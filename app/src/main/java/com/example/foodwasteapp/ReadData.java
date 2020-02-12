@@ -21,10 +21,8 @@ public class ReadData extends AppCompatActivity {
         new FirebaseDatabaseHelper().readItems(new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void DataIsLoaded(List<Item> items, List<String> keys) {
-                Log.d("Callin set config", "Failed");
                 new RecyclerView_Config().setConfig(mRecyclerView, ReadData.this,
                         items,keys);
-                Log.d("Callin set config", "Failed");
             }
 
             @Override

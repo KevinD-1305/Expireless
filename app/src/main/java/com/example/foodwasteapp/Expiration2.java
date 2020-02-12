@@ -23,9 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Expiration2 extends AppCompatActivity
 {
-    private EditText editItemName;
-    private Button buttonAdd;
-    private Spinner spinnerQuantity;
+    EditText editItemName;
+    Button buttonAdd;
+    Spinner spinnerQuantity, spinnerStorage;
 
     DatabaseReference databaseItems;
 
@@ -75,6 +75,7 @@ public class Expiration2 extends AppCompatActivity
         editItemName = findViewById(R.id.editItemName);
         buttonAdd = findViewById(R.id.Add);
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
+        spinnerStorage = findViewById(R.id.SpinnerStorage);
 
         buttonAdd.setOnClickListener((new View.OnClickListener() {
             @Override
@@ -87,12 +88,12 @@ public class Expiration2 extends AppCompatActivity
     private void addItem(){
         String name = editItemName.getText().toString().trim();
         String quantity = spinnerQuantity.getSelectedItem().toString();
-
+        String storage = spinnerStorage.getSelectedItem().toString();
 
         if(!TextUtils.isEmpty(name)){
                 String id = databaseItems.push().getKey();
 
-                    Item item = new Item(id, name, quantity);
+                    Item item = new Item(id, name, Long.parseLong(quantity), storage);
 
                     databaseItems.child(id).setValue(item);
 

@@ -20,11 +20,9 @@ public class RecyclerView_Config {
 
     public void setConfig(RecyclerView recyclerView, Context context, List<Item> items, List<String> keys) {
         mContext = context;
-        mItemsAdapter = new ItemsAdapter(items, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(emptyAdapter);
+        mItemsAdapter = new ItemsAdapter(items, keys);
         recyclerView.setAdapter(mItemsAdapter);
-        Log.d("Set config", "no adapter");
     }
 
     class ItemView extends RecyclerView.ViewHolder{
@@ -44,7 +42,7 @@ public class RecyclerView_Config {
         }
         public void bind(Item item, String key){
             mTitle.setText(item.getId());
-            mQuantity.setText((item.getQuantity()));
+            mQuantity.setText(String.valueOf(item.getQuantity()));
             mStorage.setText(item.getStorage());
             this.key = key;
 
@@ -53,6 +51,7 @@ public class RecyclerView_Config {
    public class ItemsAdapter extends RecyclerView.Adapter<ItemView> {
         private List<Item> itemList;
         private List<String> mKeys;
+
 
         public ItemsAdapter(List<Item> mItemList, List<String> mKeys) {
             this.itemList = mItemList;

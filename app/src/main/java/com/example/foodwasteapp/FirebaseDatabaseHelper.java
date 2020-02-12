@@ -1,7 +1,5 @@
 package com.example.foodwasteapp;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,23 +24,23 @@ public class FirebaseDatabaseHelper {
     }
     public  FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
-        mReferenceItems = mDatabase.getReference("items");
-        Log.d("Finding database", "database found");
+        mReferenceItems = mDatabase.getReference().child("items");
     }
 
     public void readItems(final DataStatus dataStatus) {
+        System.out.println("Failed");
         mReferenceItems.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 items.clear();
-                List<String> itemKeys = new ArrayList<>();
+                List<String> keys = new ArrayList<>();
                 for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    itemKeys.add(keyNode.getKey());
-                    //keys.add(keyNode.getKey());
+                    keys.add((keyNode.getKey()));
                     Item item = keyNode.getValue(Item.class);
                     items.add(item);
+
                 }
-                dataStatus.DataIsLoaded(items, itemKeys);
+                dataStatus.DataIsLoaded(items, keys);
             }
 
             @Override

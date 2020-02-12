@@ -14,8 +14,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 public class Read extends AppCompatActivity {
 TextView a,b,c;
 Button btn;
@@ -26,8 +24,8 @@ DatabaseReference reff;
         setContentView(R.layout.activity_read);
 
         a = findViewById(R.id.id_txtview);
-        b = findViewById(R.id.quantity_txtview);
-        c = findViewById(R.id.storage_txtView);
+        b = findViewById(R.id.quantity_txtview2);
+        c = findViewById(R.id.storage_txtview2);
         btn = findViewById(R.id.button);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -39,10 +37,10 @@ DatabaseReference reff;
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String name = dataSnapshot.child("title").getValue().toString();
                         String quantity = dataSnapshot.child("quantity").getValue().toString();
-                        String Storage = dataSnapshot.child("storage").getValue().toString();
+                        String storage = dataSnapshot.child("storage").getValue().toString();
                         a.setText(name);
                         b.setText(quantity);
-                        c.setText(Storage);
+                        c.setText(storage);
                     }
 
                     @Override

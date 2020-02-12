@@ -14,11 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Read">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ReadData">
 
@@ -31,7 +27,13 @@
 
         <activity android:name=".Scanner" />
         <activity android:name=".Expiration" />
-        <activity android:name=".Expiration2" />
+        <activity android:name=".Expiration2">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".BarcodeScanner" />
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
