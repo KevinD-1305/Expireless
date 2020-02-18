@@ -150,7 +150,7 @@ public class URLSearch extends AppCompatActivity {
            try {
                JSONObject jsonObject = new JSONObject(result);
                JSONObject objStandard = jsonObject.getJSONObject("product");
-               JSONArray jsonArray = objStandard.getJSONArray("ingredients");
+               JSONArray jsonArray = objStandard.getJSONArray("product_name");
                for (int i = 0; i < jsonArray.length(); i++) {
                    JSONObject JO = jsonArray.getJSONObject(i);
                    Players[i] = JO.getString("firstName");

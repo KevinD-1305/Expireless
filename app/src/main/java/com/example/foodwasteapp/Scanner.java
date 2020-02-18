@@ -153,11 +153,19 @@ public class Scanner extends AppCompatActivity {
 
     private void createDialog(String text) {
         AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+        builder.setTitle("Product Info:");
         builder.setMessage(text)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        startActivity(new Intent(getApplicationContext()
+                                , Expiration2.class));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
                     }
                 });
         AlertDialog dialog = builder.create();

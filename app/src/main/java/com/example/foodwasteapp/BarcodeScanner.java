@@ -95,21 +95,21 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
     public void handleResult(com.google.zxing.Result result)
     { final String scanResult = result.getText();
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setTitle("Scan Result");
+    builder.setTitle("Product Info");
     builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
     {
         @Override
         public void onClick(DialogInterface dialog, int which)
         {
-            scannerView.resumeCameraPreview(BarcodeScanner.this);
+            startActivity(new Intent(getApplicationContext()
+                    , Expiration2.class));
         }
     });
-    builder.setNeutralButton("Visit", new DialogInterface.OnClickListener()
+    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
     {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(scanResult));
-            startActivity(intent);
+            scannerView.resumeCameraPreview(BarcodeScanner.this);
         }
     });
     builder.setMessage(scanResult);

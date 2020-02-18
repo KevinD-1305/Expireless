@@ -17,7 +17,13 @@
         <activity android:name=".ReadData">
 
         </activity>
-        <activity android:name=".URLSearch"></activity>
+        <activity android:name=".URLSearch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -29,11 +35,7 @@
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
         <activity android:name=".Fridge">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
