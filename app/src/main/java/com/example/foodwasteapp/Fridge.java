@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Fridge extends AppCompatActivity {
 
+    private RecyclerView mRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,5 +58,29 @@ public class Fridge extends AppCompatActivity {
             }
         });
 
+        mRecyclerView = findViewById(R.id.recyclerview_items);
+
+        new FirebaseDatabaseHelper().readFridgeItems(new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<Item> items, List<String> keys) {
+                new RecyclerView_Config().setConfig(mRecyclerView, Fridge.this,
+                        items,keys);
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
     }
 }

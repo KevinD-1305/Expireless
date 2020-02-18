@@ -1,21 +1,21 @@
 package com.example.foodwasteapp;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class RecyclerView_Config {
     private Context mContext;
     private ItemsAdapter mItemsAdapter;
-    private ItemsAdapter emptyAdapter;
 
 
     public void setConfig(RecyclerView recyclerView, Context context, List<Item> items, List<String> keys) {
@@ -26,9 +26,10 @@ public class RecyclerView_Config {
     }
 
     class ItemView extends RecyclerView.ViewHolder{
-        private TextView mTitle;
+        private TextView mName;
         private TextView mQuantity;
         private TextView mStorage;
+        private TextView mExpiryDate;
 
         private String key;
 
@@ -36,14 +37,30 @@ public class RecyclerView_Config {
             super(LayoutInflater.from(mContext).
             inflate(R.layout.fridge_item, parent, false));
 
-            mTitle = itemView.findViewById(R.id.title_txtView);
+            mName = itemView.findViewById(R.id.name_txtView);
             mQuantity = itemView.findViewById(R.id.quantity_txtView);
             mStorage = itemView.findViewById(R.id.storage_txtView);
+            mExpiryDate = itemView.findViewById(R.id.expiration_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ItemEdit.class);
+                    intent.putExtra("key",key);
+                    intent.putExtra("name",mName.getText().toString());
+                    intent.putExtra("quantity", mQuantity.getText().toString());
+                    intent.putExtra("storage", mStorage.getText().toString());
+                    intent.putExtra("expiryDate", mExpiryDate.getText().toString());
+
+                    mContext.startActivity(intent);
+                }
+            });
         }
         public void bind(Item item, String key){
-            mTitle.setText(item.getId());
-            mQuantity.setText(String.valueOf(item.getQuantity()));
+            mName.setText(item.getName());
+            mQuantity.setText(item.getQuantity());
             mStorage.setText(item.getStorage());
+            mExpiryDate.setText(item.getExpiryDate());
             this.key = key;
 
         }

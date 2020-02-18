@@ -1,46 +1,40 @@
 package com.example.foodwasteapp;
 
-import android.util.Log;
+import android.text.Editable;
 
 public class Item {
 
-    private String Id;
-    private String name;
-    private Long Quantity;
+    private String Name;
+    private String Quantity;
     private String Storage;
+    private String ExpiryDate;
 
     public Item() {
 
     }
 
-    public Item(String itemId, String itemName, Long itemQuantity, String itemStorage) {
-        this.Id = itemId;
-        this.name = itemName;
+    public Item(String itemName, String itemQuantity, String itemStorage, String itemExpiry) {
+        this.Name = itemName;
         this.Quantity = itemQuantity;
         this.Storage = itemStorage;
+        this.ExpiryDate = itemExpiry;
 
     }
-    public String getId() {
-        return Id;
-    }
 
-    public void setId(String itemId) {
-        this.Id = itemId;
-    }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String title) {
-        this.name = title;
+    public void setName(String itemName) {
+        this.Name = itemName;
     }
 
-    public Long getQuantity() {
+    public String getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(Long itemQuantity) {
+    public void setQuantity(String itemQuantity) {
         this.Quantity = itemQuantity;
     }
 
@@ -50,5 +44,13 @@ public class Item {
 
     public void setStorage(String itemStorage) {
         this.Storage = itemStorage;
+    }
+
+    public String getExpiryDate() {
+        return ExpiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        ExpiryDate = expiryDate;
     }
 }

@@ -1,14 +1,13 @@
 package com.example.foodwasteapp;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,69 +16,43 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.Calendar;
 import java.util.List;
 
+public class ItemEdit extends AppCompatActivity {
 
-public class Expiration2 extends AppCompatActivity
-{
     private static final String TAG = "Expiration activity";
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private EditText editItemName;
-    private Button buttonAdd, buttonBack;
+    private EditText editItemName; //Will Change with barcode scanner
+    private Button buttonUpdate,buttonDelete, buttonBack;
     private Spinner spinnerQuantity, spinnerStorage;
+    private String key, name, quantity, storage, expiryDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expiration2);
+        setContentView(R.layout.activity_item_edit);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        key = getIntent().getStringExtra("key");
+        name = getIntent().getStringExtra("name");
+        quantity = getIntent().getStringExtra("quantity");
+        storage = getIntent().getStringExtra("storage");
+        expiryDate = getIntent().getStringExtra("expiryDate");
 
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.Freezer);
-
-        //Perform ItemSelected
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.BarcodeScanner:
-                        startActivity(new Intent(getApplicationContext()
-                                , BarcodeScanner.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.Fridge:
-                        startActivity(new Intent(getApplicationContext()
-                                , Fridge.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.Freezer:
-                        startActivity(new Intent(getApplicationContext()
-                                , Freezer.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.Pantry:
-                        startActivity(new Intent(getApplicationContext()
-                                , Pantry.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
-            }
-        });
         mDisplayDate = findViewById(R.id.expiration_date);
         editItemName = findViewById(R.id.editItemName);
-        buttonAdd = findViewById(R.id.Add);
-        buttonBack = findViewById(R.id.Back);
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
         spinnerStorage = findViewById(R.id.SpinnerStorage);
+
+        buttonUpdate = findViewById(R.id.Update);
+        buttonDelete = findViewById(R.id.Delete);
+        buttonBack = findViewById(R.id.Back);
+
+        mDisplayDate.setText(expiryDate);
+        editItemName.setText(name);
+        spinnerQuantity.setSelection(getIndex_SpinnerItem(spinnerQuantity, quantity));
+        spinnerStorage.setSelection(getIndex_SpinnerItem(spinnerStorage, storage));
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +62,7 @@ public class Expiration2 extends AppCompatActivity
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(Expiration2.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year,month,day);
+                DatePickerDialog dialog = new DatePickerDialog(ItemEdit.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
                 dialog.show();
             }
@@ -103,16 +76,16 @@ public class Expiration2 extends AppCompatActivity
                 mDisplayDate.setText(date);
             }
         };
-
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Item item = new Item();
                 item.setName(editItemName.getText().toString());
                 item.setQuantity(spinnerQuantity.getSelectedItem().toString());
                 item.setStorage(spinnerStorage.getSelectedItem().toString());
                 item.setExpiryDate(mDisplayDate.getText().toString());
-                new FirebaseDatabaseHelper().addItem(item, new FirebaseDatabaseHelper.DataStatus() {
+
+                new FirebaseDatabaseHelper().updateItem(key, item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<Item> items, List<String> keys) {
 
@@ -120,13 +93,14 @@ public class Expiration2 extends AppCompatActivity
 
                     @Override
                     public void DataIsInserted() {
-                        Toast.makeText(Expiration2.this, "Item added Successfully", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext()
-                                , Fridge.class));
+
                     }
+
                     @Override
                     public void DataIsUpdated() {
-
+                        Toast.makeText(ItemEdit.this, "Item has successfully been Updated.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext()
+                                , Fridge.class));
                     }
 
                     @Override
@@ -136,12 +110,51 @@ public class Expiration2 extends AppCompatActivity
                 });
             }
         });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FirebaseDatabaseHelper().deleteItem(key, new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void DataIsLoaded(List<Item> items, List<String> keys) {
+
+                    }
+
+                    @Override
+                    public void DataIsInserted() {
+
+                    }
+
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+                        Toast.makeText(ItemEdit.this, "Item has successfully been deleted.", Toast.LENGTH_LONG).show();
+                        finish(); return;
+                    }
+                });
+            }
+        });
+
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                return;
+                finish(); return;
             }
         });
+    }
+
+    private int getIndex_SpinnerItem(Spinner spinner, String item) {
+        int index = 0;
+        for(int i = 0; i<spinner.getCount(); i++){
+            if(spinner.getItemAtPosition(i).equals(item)) {
+                index = 1;
+                break;
+            }
+        }
+        return index;
     }
 }

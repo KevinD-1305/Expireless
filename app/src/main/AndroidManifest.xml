@@ -13,31 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Read">
-
-        </activity>
+        <activity android:name=".ItemEdit"></activity>
         <activity android:name=".ReadData">
 
         </activity>
-        <activity android:name=".URLSearch" />
+        <activity android:name=".URLSearch"></activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".Scanner" />
-        <activity android:name=".Expiration" />
-        <activity android:name=".Expiration2">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+        <activity android:name=".Scanner"></activity>
+        <activity android:name=".Expiration2"></activity>
         <activity android:name=".BarcodeScanner" />
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
-        <activity android:name=".Fridge"></activity>
+        <activity android:name=".Fridge">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

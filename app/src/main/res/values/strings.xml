@@ -5,8 +5,13 @@
     <string name="quantity">Quantity</string>
     <string name="Add">Add</string>
     <string name="Enter_Item">Enter Item</string>
+    <string name="Item">Item</string>
+    <string name="Expiry_Date">Expiry Date</string>
     <string name="storage">Storage</string>
-    <array name="Quantity">
+    <string name="Back">Back</string>
+    <string name="Update">Update</string>
+    <string name="Delete">Delete</string>
+    <string-array name="Quantity">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -17,12 +22,10 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
-    </array>
-    <array name="Storage">
+    </string-array>
+    <string-array name="Storage">
         <item>Fridge</item>
         <item>Freezer</item>
         <item>Pantry</item>
-    </array>
-
-
+    </string-array>
 </resources>
