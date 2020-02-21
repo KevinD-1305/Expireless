@@ -37,6 +37,7 @@ public class URLSearch extends AppCompatActivity {
     ProgressDialog pd;
     String Players[] = new String[100];
     String url = "https://world.openfoodfacts.org/api/v0/product/5060335635228.json";
+    private Button buttonParse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class URLSearch extends AppCompatActivity {
         setContentView(R.layout.activity_urlsearch);
 
         mTextViewResult = findViewById(R.id.text_view_result);
-        Button buttonParse = findViewById(R.id.button_parse);
+        buttonParse = findViewById(R.id.button_parse);
 
         mQueue = Volley.newRequestQueue(this);
 
@@ -56,36 +57,6 @@ public class URLSearch extends AppCompatActivity {
         });
     }
 
-   /* private void jsonParse() {
-        Log.d("Starting_parse", "parsed");
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject obj = new JSONObject(url);
-                            // fetch JSONObject named employee
-                            JSONObject employee = obj.getJSONObject("product_name");
-                            product = employee.getString("product_name");
-
-                            mTextViewResult.append(product +"\n\n");
-                            Log.d("Fail", "Failed");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d("Catch", "Catched");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        mQueue.add(request);
-    }
-    */
    private class jsonParse extends AsyncTask<String, String, String> {
 
        protected void onPreExecute() {
@@ -150,10 +121,10 @@ public class URLSearch extends AppCompatActivity {
            try {
                JSONObject jsonObject = new JSONObject(result);
                JSONObject objStandard = jsonObject.getJSONObject("product");
-               JSONArray jsonArray = objStandard.getJSONArray("product_name");
+               JSONArray jsonArray = objStandard.getJSONArray("product");
                for (int i = 0; i < jsonArray.length(); i++) {
                    JSONObject JO = jsonArray.getJSONObject(i);
-                   Players[i] = JO.getString("firstName");
+                   Players[i] = JO.getString("product_name");
                    mTextViewResult.append(Players[i] + "\n");
                }
            } catch (JSONException e) {
@@ -165,6 +136,4 @@ public class URLSearch extends AppCompatActivity {
            mTextViewResult.setText(result);
        }
    }
-
-
 }
