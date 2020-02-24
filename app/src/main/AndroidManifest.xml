@@ -18,18 +18,19 @@
 
         </activity>
         <activity android:name=".URLSearch">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".Scanner"></activity>
+        <activity android:name=".Scanner">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Expiration2"></activity>
         <activity android:name=".BarcodeScanner" />
         <activity android:name=".Pantry" />

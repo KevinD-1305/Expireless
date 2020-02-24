@@ -121,6 +121,7 @@ public class Scanner extends AppCompatActivity {
                 {
                     case FirebaseVisionBarcode.TYPE_PRODUCT:
                     {
+                        new URLSearch();
                         createDialog(item.getDisplayValue()); //Change to the name of product
                     }
                     break;
