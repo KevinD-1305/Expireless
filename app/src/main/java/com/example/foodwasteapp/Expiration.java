@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class Expiration2 extends AppCompatActivity
+public class Expiration extends AppCompatActivity
 {
     private static final String TAG = "Expiration activity";
     private TextView mDisplayDate;
@@ -38,7 +38,7 @@ public class Expiration2 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expiration2);
+        setContentView(R.layout.activity_expiration);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -76,6 +76,7 @@ public class Expiration2 extends AppCompatActivity
         });
         mDisplayDate = findViewById(R.id.expiration_date);
         editItemName = findViewById(R.id.editItemName);
+        editItemName.setText(Scanner.productName);
         buttonAdd = findViewById(R.id.Add);
         buttonBack = findViewById(R.id.Back);
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
@@ -89,7 +90,7 @@ public class Expiration2 extends AppCompatActivity
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(Expiration2.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year,month,day);
+                DatePickerDialog dialog = new DatePickerDialog(Expiration.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year,month,day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
                 dialog.show();
             }
@@ -120,7 +121,7 @@ public class Expiration2 extends AppCompatActivity
 
                     @Override
                     public void DataIsInserted() {
-                        Toast.makeText(Expiration2.this, "Item added Successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Expiration.this, "Item added Successfully", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext()
                                 , Fridge.class));
                     }

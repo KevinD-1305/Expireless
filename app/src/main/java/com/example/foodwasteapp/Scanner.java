@@ -11,9 +11,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -25,14 +31,14 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.karumi.dexter.listener.single.PermissionListener;
 import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -41,6 +47,9 @@ public class Scanner extends AppCompatActivity {
     CameraView camera_View;
     boolean isDetected = false;
     Button btn_start_again;
+    private RequestQueue mQueue;
+    public static String productName;
+    public static String code;
 
     FirebaseVisionBarcodeDetectorOptions options;
     FirebaseVisionBarcodeDetector detector;
@@ -63,6 +72,7 @@ public class Scanner extends AppCompatActivity {
 
                     }
                 }).check();
+        mQueue = Volley.newRequestQueue(this);
     }
 
         private void setupCamera() {
@@ -121,8 +131,8 @@ public class Scanner extends AppCompatActivity {
                 {
                     case FirebaseVisionBarcode.TYPE_PRODUCT:
                     {
-                        new URLSearch();
-                        createDialog(item.getDisplayValue()); //Change to the name of product
+                        jsonParse();
+                        code = (item.getDisplayValue()); //Change to the name of product
                     }
                     break;
                     case FirebaseVisionBarcode.TYPE_URL:
@@ -160,7 +170,7 @@ public class Scanner extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         startActivity(new Intent(getApplicationContext()
-                                , Expiration2.class));
+                                , Expiration.class));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -183,4 +193,35 @@ public class Scanner extends AppCompatActivity {
                 .build();
         return FirebaseVisionImage.fromByteArray(data,metadata);
     }
+
+    public void jsonParse() {
+
+        String url = "https://world.openfoodfacts.org/api/v0/product/" + code + ".json";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            JSONObject product = response.getJSONObject("product");
+                            productName = product.get("product_name").toString();
+                            String servingSize = product.get("product_quantity").toString();
+                            createDialog(productName + "\n\n" + "Quantity: " + servingSize + "ML/G" + "\n\n");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mQueue.add(request);
+
+    }
+
+
 }

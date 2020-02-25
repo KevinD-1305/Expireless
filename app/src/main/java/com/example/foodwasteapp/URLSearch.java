@@ -38,7 +38,7 @@ public class URLSearch extends AppCompatActivity {
 
     }
 
-    private void jsonParse() {
+    public void jsonParse() {
 
         String url = "https://world.openfoodfacts.org/api/v0/product/5060335635228.json";
 

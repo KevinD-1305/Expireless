@@ -1,28 +1,18 @@
 package com.example.foodwasteapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.widget.Toast;
-import javax.xml.transform.Result;
+
 import static android.Manifest.permission.CAMERA;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BarcodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -102,7 +92,7 @@ public class BarcodeScanner extends AppCompatActivity implements ZXingScannerVie
         public void onClick(DialogInterface dialog, int which)
         {
             startActivity(new Intent(getApplicationContext()
-                    , Expiration2.class));
+                    , Expiration.class));
         }
     });
     builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
