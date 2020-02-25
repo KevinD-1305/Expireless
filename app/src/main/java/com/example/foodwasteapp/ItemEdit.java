@@ -99,8 +99,7 @@ public class ItemEdit extends AppCompatActivity {
                     @Override
                     public void DataIsUpdated() {
                         Toast.makeText(ItemEdit.this, "Item has successfully been Updated.", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext()
-                                , Fridge.class));
+                        finish(); return;
                     }
 
                     @Override
@@ -151,7 +150,7 @@ public class ItemEdit extends AppCompatActivity {
         int index = 0;
         for(int i = 0; i<spinner.getCount(); i++){
             if(spinner.getItemAtPosition(i).equals(item)) {
-                index = 1;
+                index = i;
                 break;
             }
         }

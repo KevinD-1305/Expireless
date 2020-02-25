@@ -3,10 +3,12 @@
     <string name="scan_again">Scan Again</string>
     <string name="select_expiration_date">Select Expiration Date</string>
     <string name="quantity">Quantity</string>
+    <string name="quantity_txt">Quantity: </string>
     <string name="Add">Add</string>
     <string name="Enter_Item">Enter Item</string>
     <string name="Item">Item</string>
     <string name="Expiry_Date">Expiry Date</string>
+    <string name="expires_txt">Expires: </string>
     <string name="storage">Storage</string>
     <string name="Back">Back</string>
     <string name="Update">Update</string>

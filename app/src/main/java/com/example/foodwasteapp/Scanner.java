@@ -76,7 +76,7 @@ public class Scanner extends AppCompatActivity {
     }
 
         private void setupCamera() {
-        btn_start_again = (Button)findViewById(R.id.btn_again);
+        btn_start_again = findViewById(R.id.btn_again);
         btn_start_again.setEnabled(!isDetected);
         btn_start_again.setOnClickListener(new View.OnClickListener()
         {
@@ -86,7 +86,7 @@ public class Scanner extends AppCompatActivity {
             }
         });
 
-        camera_View = (CameraView)findViewById(R.id.cameraView);
+        camera_View = findViewById(R.id.cameraView);
         camera_View.setLifecycleOwner(this);
         camera_View.addFrameProcessor(new FrameProcessor() {
             @Override

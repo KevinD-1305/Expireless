@@ -29,7 +29,7 @@ import java.util.List;
 public class Expiration extends AppCompatActivity
 {
     private static final String TAG = "Expiration activity";
-    private TextView mDisplayDate;
+    public TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText editItemName;
     private Button buttonAdd, buttonBack;
