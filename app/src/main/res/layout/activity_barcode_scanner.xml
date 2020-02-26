@@ -13,6 +13,16 @@
         android:text="BarCode"
         android:textSize="50sp"
         android:layout_centerInParent="true"/>
+    <TextView
+        android:id="@+id/expiration_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:hint="@string/select_expiration_date"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
