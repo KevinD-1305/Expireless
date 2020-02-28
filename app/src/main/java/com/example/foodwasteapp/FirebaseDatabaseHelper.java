@@ -29,9 +29,7 @@ public class FirebaseDatabaseHelper {
     public  FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mReferenceItems = mDatabase.getReference().child("items");
-
     }
-
     public void readFridgeItems(final DataStatus dataStatus) {
         Query query = FirebaseDatabase.getInstance().getReference("items")
                 .orderByChild("storage")

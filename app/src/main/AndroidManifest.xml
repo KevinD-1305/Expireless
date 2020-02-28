@@ -16,11 +16,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ItemEdit"></activity>
         <activity android:name=".DateTracker">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ReadData">
 
@@ -33,17 +28,20 @@
             android:value="barcode" />
 
         <activity android:name=".Scanner">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Expiration"></activity>
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
         <activity android:name=".Fridge">
 
+        </activity>
+        <activity android:name=".Tracker">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

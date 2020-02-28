@@ -1,86 +1,48 @@
 package com.example.foodwasteapp;
 
-import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import org.w3c.dom.Text;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static com.example.foodwasteapp.Notifications.CHANNEL_1_ID;
 
-public class DateTracker extends AppCompatActivity {
+public class Tracker extends AppCompatActivity {
 
-    private NotificationManagerCompat notificationManager;
-    private static final String TAG = "Expiration activity";
-    public TextView mDisplayDate;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReferenceItems;
     long daysToExpiry;
-    String expiryDate;
+    public TextView mDisplayDate;
+    private String expiryDate;
+    private NotificationManagerCompat notificationManager;
+    String currentDate;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("No event listener");
         setContentView(R.layout.activity_barcode_scanner);
         notificationManager = NotificationManagerCompat.from(this);
         mDisplayDate = findViewById(R.id.expiration_date);
-
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(DateTracker.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
-                dialog.show();
-            }
-        });
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Log.d(TAG, "onDateSet: dd/mm/yy: " + dayOfMonth + "/" + month + "/" + year);
-                String formattedMonth = "" + month;
-                String formattedDayOfMonth = "" + dayOfMonth;
-
-                if(month < 10){
-
-                     formattedMonth = "0" + (month + 1);
-                }
-                if(dayOfMonth < 10){
-
-                    formattedDayOfMonth = "0" + dayOfMonth;
-                }
-                expiryDate = formattedDayOfMonth + "/" + formattedMonth + "/" + year;
-                mDisplayDate.setText(expiryDate); //For Datepicker
-                Tracker(view);
-            }
-        };
+        currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        notificationManager = NotificationManagerCompat.from(this);
     }
-
     public void Tracker (View view){
         String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
@@ -93,7 +55,6 @@ public class DateTracker extends AppCompatActivity {
             if (daysToExpiry > 0) {
                 if (daysToExpiry <= 2){
                     System.out.println(expiryDate1 + " Between 3 days " + currentDate1);
-
                     ExpiresSoon(view);
                 }
             }  else if (daysToExpiry == 0) {
