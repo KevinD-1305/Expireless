@@ -34,7 +34,7 @@ public class Pantry extends AppCompatActivity {
                 {
                     case R.id.BarcodeScanner:
                         startActivity(new Intent(getApplicationContext()
-                                ,BarcodeScanner.class));
+                                ,Scanner.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.Fridge:

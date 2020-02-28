@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class Expiration extends AppCompatActivity
 {
+    private NotificationManagerCompat notificationManager;
     private static final String TAG = "Expiration activity";
     public TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -52,7 +54,7 @@ public class Expiration extends AppCompatActivity
                 switch (item.getItemId()) {
                     case R.id.BarcodeScanner:
                         startActivity(new Intent(getApplicationContext()
-                                , BarcodeScanner.class));
+                                , Scanner.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.Fridge:
@@ -81,6 +83,7 @@ public class Expiration extends AppCompatActivity
         buttonBack = findViewById(R.id.Back);
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
         spinnerStorage = findViewById(R.id.SpinnerStorage);
+        notificationManager = NotificationManagerCompat.from(this);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +107,6 @@ public class Expiration extends AppCompatActivity
                 mDisplayDate.setText(date);
             }
         };
-
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,4 +147,6 @@ public class Expiration extends AppCompatActivity
             }
         });
     }
+
+
 }

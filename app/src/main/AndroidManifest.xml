@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".Notifications"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -39,7 +40,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Expiration"></activity>
-        <activity android:name=".BarcodeScanner" />
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
         <activity android:name=".Fridge">

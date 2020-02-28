@@ -218,10 +218,6 @@ public class Scanner extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
-
         mQueue.add(request);
-
     }
-
-
 }
