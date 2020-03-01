@@ -93,7 +93,6 @@ public class DateTracker extends AppCompatActivity {
             if (daysToExpiry > 0) {
                 if (daysToExpiry <= 2){
                     System.out.println(expiryDate1 + " Between 3 days " + currentDate1);
-
                     ExpiresSoon(view);
                 }
             }  else if (daysToExpiry == 0) {

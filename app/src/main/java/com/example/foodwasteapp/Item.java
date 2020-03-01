@@ -18,9 +18,7 @@ public class Item {
         this.Quantity = itemQuantity;
         this.Storage = itemStorage;
         this.ExpiryDate = itemExpiry;
-
     }
-
 
     public String getName() {
         return Name;

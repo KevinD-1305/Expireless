@@ -5,16 +5,34 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
 public class Notifications extends Application {
 
     public static final  String CHANNEL_1_ID = "Chanenel1";
 
     @Override
     public void onCreate() {
-        super.onCreate();
-
+        super.onCreate();   
         createNotificationChannels();
 
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if(task.isSuccessful()){
+                            String token = task.getResult().getToken();
+
+                        } else {
+
+                        }
+                    }
+                });
     }
 
     private void createNotificationChannels() {

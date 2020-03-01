@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "429255433208-61rshm7ks964mf2qei80r3up2t4qcvd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodwasteapp",
+            "certificate_hash": "7bc404162ec98aa924edc65382dcb26555c1c507"
+          }
+        },
+        {
           "client_id": "429255433208-nc1lgkluoi87qhlb4pgm24q81kbvrnen.apps.googleusercontent.com",
           "client_type": 3
         }
