@@ -1,6 +1,7 @@
 package com.example.foodwasteapp;
 
 import android.provider.ContactsContract;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +12,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,8 @@ import java.util.List;
 public class FirebaseDatabaseHelper {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceItems;
+    private StorageReference mStorageRef;
+    private FirebaseStorage mStorage;
     private List<Item> items =  new ArrayList<>();
 
     public interface DataStatus{
@@ -28,7 +34,9 @@ public class FirebaseDatabaseHelper {
     }
     public  FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
-        mReferenceItems = mDatabase.getReference().child("items");
+        mStorage = FirebaseStorage.getInstance();
+        mStorageRef = mStorage.getReference().child("items");
+        mReferenceItems = mDatabase.getReference("items");
     }
     public void readFridgeItems(final DataStatus dataStatus) {
         Query query = FirebaseDatabase.getInstance().getReference("items")
@@ -105,7 +113,17 @@ public class FirebaseDatabaseHelper {
         });
     }
 
-    public void addItem(Item item, final DataStatus dataStatus) {
+    public void addItem(final Item item, final DataStatus dataStatus) {
+        StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + ".");
+        /*fileReference.putFile(item.getImage())
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Upload upload = new Upload(item.getName());
+                    }
+                });
+
+         */
         String key = mReferenceItems.push().getKey();
         mReferenceItems.child(key).setValue(item)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

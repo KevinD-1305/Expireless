@@ -2,17 +2,22 @@ package com.example.foodwasteapp;
 
 
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +26,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
 import java.util.List;
@@ -36,6 +48,9 @@ public class Expiration extends AppCompatActivity
     private EditText editItemName;
     private Button buttonAdd, buttonBack;
     private Spinner spinnerQuantity, spinnerStorage;
+    public static ImageView itemImage;
+    private StorageReference mStorageRef;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +98,12 @@ public class Expiration extends AppCompatActivity
         buttonBack = findViewById(R.id.Back);
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
         spinnerStorage = findViewById(R.id.SpinnerStorage);
+        itemImage = findViewById(R.id.ItemImage);
+        //itemImage.setImageBitmap(Scanner.item);
         notificationManager = NotificationManagerCompat.from(this);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("items");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("items");
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +135,7 @@ public class Expiration extends AppCompatActivity
                 item.setQuantity(spinnerQuantity.getSelectedItem().toString());
                 item.setStorage(spinnerStorage.getSelectedItem().toString());
                 item.setExpiryDate(mDisplayDate.getText().toString());
+                item.setImage(itemImage);
                 new FirebaseDatabaseHelper().addItem(item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<Item> items, List<String> keys) {
@@ -147,6 +168,32 @@ public class Expiration extends AppCompatActivity
             }
         });
     }
+/*
+    private void uploadFile() {
+        if (itemImage != null) {
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
+            + ".");
+            fileReference.putFile(itemImage)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(Expiration.this, "Upload Successful", Toast.LENGTH_LONG).show();
+                            Upload upload = new Upload(editItemName.getText().toString());
+                            String uploadId = mDatabaseRef.push().getKey(); //New Entry with new id
+                            mDatabaseRef.child(uploadId).setValue(upload); // Take unique ID and set Data to upload file
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Expiration.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "No file", Toast.LENGTH_SHORT).show();
+        }
 
+    }
 
+ */
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@ public class RecyclerView_Config {
         private TextView mQuantity;
         private TextView mStorage;
         private TextView mExpiryDate;
+        private ImageView ItemImage;
 
         private String key;
 
@@ -41,6 +43,7 @@ public class RecyclerView_Config {
             mQuantity = itemView.findViewById(R.id.quantity_txtView);
             mStorage = itemView.findViewById(R.id.storage_txtView);
             mExpiryDate = itemView.findViewById(R.id.expiration_date);
+            //ItemImage = itemView.findViewById(R.id.ItemImage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

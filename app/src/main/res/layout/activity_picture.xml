@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fridge">
+    tools:context=".CallPciture">
 
-    <TextView
-        android:id="@+id/date"
+    <ImageView
+        android:id="@+id/ItemImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BarCode"
-        android:textSize="50sp"
-        android:layout_centerInParent="true"/>
+        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
     <TextView
         android:id="@+id/expiration_date"
         android:layout_width="wrap_content"

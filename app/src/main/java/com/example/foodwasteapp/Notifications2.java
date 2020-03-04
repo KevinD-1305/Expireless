@@ -1,6 +1,7 @@
 package com.example.foodwasteapp;
 
 import android.app.Notification;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,27 +19,29 @@ import java.util.concurrent.TimeUnit;
 
 import static com.example.foodwasteapp.Notifications.CHANNEL_1_ID;
 
-public class Tracker extends AppCompatActivity {
-
+public class Notifications2 extends AppCompatActivity {
+    TextView a;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceItems;
-    long daysToExpiry;
-    public TextView mDisplayDate;
-    private String expiryDate;
     private NotificationManagerCompat notificationManager;
+    long daysToExpiry;
+    String expiryDate;
+    private Context mContext;
     String currentDate;
+    private TextView mExpiryDate;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState, View view, final Item item) {
         super.onCreate(savedInstanceState);
-        System.out.println("No event listener");
         setContentView(R.layout.activity_picture);
-        notificationManager = NotificationManagerCompat.from(this);
-        mDisplayDate = findViewById(R.id.expiration_date);
         currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+
         notificationManager = NotificationManagerCompat.from(this);
+
+        //a = findViewById(R.id.date);
+
+
     }
     public void Tracker (View view){
-        String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);

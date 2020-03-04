@@ -15,12 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ItemEdit"/>
-        <activity android:name=".DateTracker">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Notifications2">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".DateTracker">
+
         </activity>
         <activity android:name=".ReadData">
 
@@ -33,7 +32,11 @@
             android:value="barcode" />
 
         <activity android:name=".Scanner">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Expiration"></activity>
         <activity android:name=".Pantry" />
@@ -43,12 +46,9 @@
         </activity>
         <activity android:name=".Tracker">
         </activity>
+        <activity android:name=".CallPciture">
 
-        <service android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+    </activity>
 
     </application>
 

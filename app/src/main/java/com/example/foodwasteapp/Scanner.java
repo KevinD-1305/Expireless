@@ -3,17 +3,20 @@ package com.example.foodwasteapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,10 +39,14 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class Scanner extends AppCompatActivity {
@@ -50,6 +57,8 @@ public class Scanner extends AppCompatActivity {
     private RequestQueue mQueue;
     public static String productName;
     public static String code;
+    public static ImageView itemImage;
+    public static Bitmap item;
 
     FirebaseVisionBarcodeDetectorOptions options;
     FirebaseVisionBarcodeDetector detector;
@@ -60,7 +69,7 @@ public class Scanner extends AppCompatActivity {
         setContentView(R.layout.activity_scanner);
 
         Dexter.withActivity(this)
-                .withPermissions(new String[] {Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO})
+                .withPermissions(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
@@ -165,6 +174,7 @@ public class Scanner extends AppCompatActivity {
     private void createDialog(String text) {
         AlertDialog.Builder builder =  new AlertDialog.Builder(this);
         builder.setTitle("Product Info:");
+        builder.setIcon(R.drawable.ic_greentick);
         builder.setMessage(text)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -206,8 +216,25 @@ public class Scanner extends AppCompatActivity {
                         try {
                             JSONObject product = response.getJSONObject("product");
                             productName = product.get("product_name").toString();
-                            String servingSize = product.get("product_quantity").toString();
+                            String servingSize = product.get("quantity").toString();
+                            final String imageUrl = product.get("image_url").toString();
+                            System.out.println("Product quantity");
+                            JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.GET, imageUrl, null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Picasso.with(new Expiration()).load(imageUrl).into(Expiration.itemImage);
+                                            System.out.println("Image Url");
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    error.printStackTrace();
+                                }
+                            });
+                            mQueue.add(request2);
                             createDialog(productName + "\n\n" + "Quantity: " + servingSize + "ML/G" + "\n\n");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -219,5 +246,28 @@ public class Scanner extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+    }
+
+    private static class LoadImage extends AsyncTask<String,Void, Bitmap> {
+        ImageView imageView;
+        public LoadImage(ImageView icon) {
+            this.imageView = icon;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            String urlLink = strings [0];
+            Bitmap bitmap = null;
+            InputStream inputStream = null;
+            try {
+                inputStream = new java.net.URL(urlLink).openStream();
+                item = BitmapFactory.decodeStream(inputStream);
+                itemImage.setImageBitmap(item);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return item;
+        }
+
     }
 }
