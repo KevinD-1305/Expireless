@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,11 +17,16 @@ import java.util.List;
 public class Fridge extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fridge);
+
+        //Toolbar
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Fridge");
+        setSupportActionBar(toolbar);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

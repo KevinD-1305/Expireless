@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -16,11 +16,15 @@ import java.util.List;
 public class Freezer extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freezer);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Freezer");
+        setSupportActionBar(toolbar);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 

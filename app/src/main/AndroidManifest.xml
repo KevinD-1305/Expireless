@@ -14,7 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ItemEdit" />
         <activity android:name=".Notifications2"></activity>
         <activity android:name=".DateTracker"></activity>
@@ -29,11 +35,7 @@
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
         <activity android:name=".Fridge">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Tracker"></activity>
         <activity android:name=".CallPciture"></activity>

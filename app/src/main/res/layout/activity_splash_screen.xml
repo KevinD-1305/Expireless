@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/Logo"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="386dp"
+        android:layout_height="366dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/barcode" />
+        app:srcCompat="@drawable/expireless" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
