@@ -59,6 +59,7 @@ public class Scanner extends AppCompatActivity {
     public static String code;
     public static ImageView itemImage;
     public static Bitmap item;
+    public static String imageUrl;
 
     FirebaseVisionBarcodeDetectorOptions options;
     FirebaseVisionBarcodeDetector detector;
@@ -217,24 +218,8 @@ public class Scanner extends AppCompatActivity {
                             JSONObject product = response.getJSONObject("product");
                             productName = product.get("product_name").toString();
                             String servingSize = product.get("quantity").toString();
-                            final String imageUrl = product.get("image_url").toString();
-                            System.out.println("Product quantity");
-                            JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.GET, imageUrl, null,
-                                    new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            Picasso.with(new Expiration()).load(imageUrl).into(Expiration.itemImage);
-                                            System.out.println("Image Url");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    error.printStackTrace();
-                                }
-                            });
-                            mQueue.add(request2);
-                            createDialog(productName + "\n\n" + "Quantity: " + servingSize + "ML/G" + "\n\n");
-
+                            imageUrl = product.get("image_url").toString();
+                            createDialog(productName + "\n\n" + "Quantity: " + servingSize + "\n\n");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -246,28 +231,5 @@ public class Scanner extends AppCompatActivity {
             }
         });
         mQueue.add(request);
-    }
-
-    private static class LoadImage extends AsyncTask<String,Void, Bitmap> {
-        ImageView imageView;
-        public LoadImage(ImageView icon) {
-            this.imageView = icon;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            String urlLink = strings [0];
-            Bitmap bitmap = null;
-            InputStream inputStream = null;
-            try {
-                inputStream = new java.net.URL(urlLink).openStream();
-                item = BitmapFactory.decodeStream(inputStream);
-                itemImage.setImageBitmap(item);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return item;
-        }
-
     }
 }

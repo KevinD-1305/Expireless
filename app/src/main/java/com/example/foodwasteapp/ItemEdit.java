@@ -6,15 +6,19 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +32,8 @@ public class ItemEdit extends AppCompatActivity {
     private Button buttonUpdate,buttonDelete, buttonBack;
     private Spinner spinnerQuantity, spinnerStorage;
     private String key, name, quantity, storage, expiryDate;
+    public static ImageView itemImage;
+    public static String imageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,13 @@ public class ItemEdit extends AppCompatActivity {
         quantity = getIntent().getStringExtra("quantity");
         storage = getIntent().getStringExtra("storage");
         expiryDate = getIntent().getStringExtra("expiryDate");
+        imageUrl = getIntent().getStringExtra("image");
 
         mDisplayDate = findViewById(R.id.expiration_date);
         editItemName = findViewById(R.id.editItemName);
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
         spinnerStorage = findViewById(R.id.SpinnerStorage);
+        itemImage = findViewById(R.id.ItemImage);
 
         buttonUpdate = findViewById(R.id.Update);
         buttonDelete = findViewById(R.id.Delete);
@@ -53,6 +61,7 @@ public class ItemEdit extends AppCompatActivity {
         editItemName.setText(name);
         spinnerQuantity.setSelection(getIndex_SpinnerItem(spinnerQuantity, quantity));
         spinnerStorage.setSelection(getIndex_SpinnerItem(spinnerStorage, storage));
+        Picasso.with(this).load(imageUrl).into(itemImage);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override

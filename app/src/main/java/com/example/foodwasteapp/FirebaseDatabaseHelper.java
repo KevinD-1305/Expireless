@@ -22,8 +22,7 @@ import java.util.List;
 public class FirebaseDatabaseHelper {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceItems;
-    private StorageReference mStorageRef;
-    private FirebaseStorage mStorage;
+
     private List<Item> items =  new ArrayList<>();
 
     public interface DataStatus{
@@ -34,8 +33,6 @@ public class FirebaseDatabaseHelper {
     }
     public  FirebaseDatabaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
-        mStorage = FirebaseStorage.getInstance();
-        mStorageRef = mStorage.getReference().child("items");
         mReferenceItems = mDatabase.getReference("items");
     }
     public void readFridgeItems(final DataStatus dataStatus) {
@@ -114,16 +111,6 @@ public class FirebaseDatabaseHelper {
     }
 
     public void addItem(final Item item, final DataStatus dataStatus) {
-        StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + ".");
-        /*fileReference.putFile(item.getImage())
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Upload upload = new Upload(item.getName());
-                    }
-                });
-
-         */
         String key = mReferenceItems.push().getKey();
         mReferenceItems.child(key).setValue(item)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

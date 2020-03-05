@@ -1,7 +1,10 @@
 package com.example.foodwasteapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +13,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.valueOf;
 
@@ -32,7 +41,7 @@ public class RecyclerView_Config {
         private TextView mStorage;
         private TextView mExpiryDate;
         private ImageView ItemImage;
-
+        private String imageUrl;
         private String key;
 
         public ItemView(ViewGroup parent) {
@@ -43,7 +52,7 @@ public class RecyclerView_Config {
             mQuantity = itemView.findViewById(R.id.quantity_txtView);
             mStorage = itemView.findViewById(R.id.storage_txtView);
             mExpiryDate = itemView.findViewById(R.id.expiration_date);
-            //ItemImage = itemView.findViewById(R.id.ItemImage);
+            ItemImage = itemView.findViewById(R.id.ItemImage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,17 +63,46 @@ public class RecyclerView_Config {
                     intent.putExtra("quantity", mQuantity.getText().toString());
                     intent.putExtra("storage", mStorage.getText().toString());
                     intent.putExtra("expiryDate", mExpiryDate.getText().toString());
+                    intent.putExtra("image", imageUrl);
 
                     mContext.startActivity(intent);
                 }
             });
         }
+        @SuppressLint("ResourceAsColor")
         public void bind(Item item, String key){
-            mName.setText(item.getName());
-            mQuantity.setText(item.getQuantity());
-            mStorage.setText(item.getStorage());
-            mExpiryDate.setText(item.getExpiryDate());
-            this.key = key;
+            String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+            String expiryDate = item.getExpiryDate();
+
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                Date currentDate1 = sdf.parse(currentDate);
+                Date expiryDate1 = sdf.parse(expiryDate);
+                long daysToExpiry = expiryDate1.getTime() - currentDate1.getTime();
+                daysToExpiry = TimeUnit.DAYS.convert(daysToExpiry, TimeUnit.MILLISECONDS);
+                
+                if (daysToExpiry > 0) {
+                    if (daysToExpiry <= 2){
+                        mExpiryDate.setTextColor(Color.parseColor("#FFA500"));
+                    }
+                }  else if (daysToExpiry == 0) {
+                    mExpiryDate.setTextColor(Color.parseColor("#FF6347"));
+
+                } else if (daysToExpiry < 0) {
+                    mExpiryDate.setTextColor(Color.parseColor("#B22222"));
+                    mExpiryDate.setPaintFlags(mExpiryDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                }
+                    mName.setText(item.getName());
+                    mQuantity.setText(item.getQuantity());
+                    mStorage.setText(item.getStorage());
+                    mExpiryDate.setText(item.getExpiryDate());
+                    imageUrl = item.getImage();
+                    Picasso.with(mContext).load(imageUrl).into(ItemImage);
+                    this.key = key;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }

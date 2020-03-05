@@ -13,6 +13,7 @@
     <string name="Back">Back</string>
     <string name="Update">Update</string>
     <string name="Delete">Delete</string>
+    <string name="new_item">New item (Manual)</string>
     <string-array name="Quantity">
         <item>1</item>
         <item>2</item>

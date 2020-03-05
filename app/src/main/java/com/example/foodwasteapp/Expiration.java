@@ -1,6 +1,4 @@
 package com.example.foodwasteapp;
-
-
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -33,11 +31,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.List;
-
 
 public class Expiration extends AppCompatActivity
 {
@@ -49,8 +48,8 @@ public class Expiration extends AppCompatActivity
     private Button buttonAdd, buttonBack;
     private Spinner spinnerQuantity, spinnerStorage;
     public static ImageView itemImage;
-    private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseRef;
+    public static Uri imageUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +98,10 @@ public class Expiration extends AppCompatActivity
         spinnerQuantity = findViewById(R.id.SpinnerQuantity);
         spinnerStorage = findViewById(R.id.SpinnerStorage);
         itemImage = findViewById(R.id.ItemImage);
-        //itemImage.setImageBitmap(Scanner.item);
         notificationManager = NotificationManagerCompat.from(this);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("items");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("items");
+        Picasso.with(this).load(Scanner.imageUrl).into(itemImage);
+        imageUri = Uri.parse(String.valueOf(itemImage));
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +133,8 @@ public class Expiration extends AppCompatActivity
                 item.setQuantity(spinnerQuantity.getSelectedItem().toString());
                 item.setStorage(spinnerStorage.getSelectedItem().toString());
                 item.setExpiryDate(mDisplayDate.getText().toString());
-                item.setImage(itemImage);
+                item.setImage(Scanner.imageUrl);
+                //uploadFile();
                 new FirebaseDatabaseHelper().addItem(item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<Item> items, List<String> keys) {
@@ -170,10 +169,10 @@ public class Expiration extends AppCompatActivity
     }
 /*
     private void uploadFile() {
-        if (itemImage != null) {
+        if (imageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
             + ".");
-            fileReference.putFile(itemImage)
+           mUploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -196,4 +195,5 @@ public class Expiration extends AppCompatActivity
     }
 
  */
+
 }

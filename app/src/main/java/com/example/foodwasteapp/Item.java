@@ -1,8 +1,5 @@
 package com.example.foodwasteapp;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.text.Editable;
 import android.widget.ImageView;
 
 public class Item {
@@ -11,13 +8,13 @@ public class Item {
     private String Quantity;
     private String Storage;
     private String ExpiryDate;
-    private ImageView image;
+    private String image;
 
     public Item() {
 
     }
 
-    public Item(String itemName, String itemQuantity, String itemStorage, String itemExpiry, ImageView itemImage) {
+    public Item(String itemName, String itemQuantity, String itemStorage, String itemExpiry, String itemImage) {
         this.Name = itemName;
         this.Quantity = itemQuantity;
         this.Storage = itemStorage;
@@ -29,11 +26,11 @@ public class Item {
         return Name;
     }
 
-    public ImageView getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(ImageView image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
