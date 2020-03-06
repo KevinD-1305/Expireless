@@ -9,6 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,7 +20,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -34,12 +40,16 @@ public class ItemEdit extends AppCompatActivity {
     private String key, name, quantity, storage, expiryDate;
     public static ImageView itemImage;
     public static String imageUrl;
+    private Toolbar toolbar;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_edit);
 
+        mAuth = FirebaseAuth.getInstance();
         key = getIntent().getStringExtra("key");
         name = getIntent().getStringExtra("name");
         quantity = getIntent().getStringExtra("quantity");
@@ -58,10 +68,15 @@ public class ItemEdit extends AppCompatActivity {
         buttonBack = findViewById(R.id.Back);
 
         mDisplayDate.setText(expiryDate);
+        mDisplayDate.setGravity(Gravity.CENTER);
         editItemName.setText(name);
         spinnerQuantity.setSelection(getIndex_SpinnerItem(spinnerQuantity, quantity));
         spinnerStorage.setSelection(getIndex_SpinnerItem(spinnerStorage, storage));
         Picasso.with(this).load(imageUrl).into(itemImage);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(name);
+        setSupportActionBar(toolbar);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +98,8 @@ public class ItemEdit extends AppCompatActivity {
 
                 String date = dayOfMonth + "/" + (month + 1) + "/" + year;
                 mDisplayDate.setText(date);
+                mDisplayDate.setGravity(Gravity.CENTER);
+
             }
         };
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
@@ -164,5 +181,35 @@ public class ItemEdit extends AppCompatActivity {
             }
         }
         return index;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        getMenuInflater().inflate(R.menu.manual, menu);
+        if(user != null) {
+            menu.getItem(0).setVisible(true);
+            menu.getItem(1).setVisible(true);
+        } else {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.new_item:
+                startActivity(new Intent (this, Expiration.class));
+                return  true;
+            case R.id.Logout:
+                mAuth.signOut();
+                invalidateOptionsMenu();
+                RecyclerView_Config.Logout();
+                startActivity(new Intent (this, SignIn.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

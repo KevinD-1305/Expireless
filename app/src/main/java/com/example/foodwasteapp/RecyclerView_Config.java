@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -21,14 +23,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static java.lang.String.valueOf;
 
 public class RecyclerView_Config {
+    FirebaseAuth mAuth;
+    private static FirebaseUser user;
     private Context mContext;
     private ItemsAdapter mItemsAdapter;
 
-
     public void setConfig(RecyclerView recyclerView, Context context, List<Item> items, List<String> keys) {
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         mContext = context;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         mItemsAdapter = new ItemsAdapter(items, keys);
@@ -57,15 +63,19 @@ public class RecyclerView_Config {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ItemEdit.class);
-                    intent.putExtra("key",key);
-                    intent.putExtra("name",mName.getText().toString());
-                    intent.putExtra("quantity", mQuantity.getText().toString());
-                    intent.putExtra("storage", mStorage.getText().toString());
-                    intent.putExtra("expiryDate", mExpiryDate.getText().toString());
-                    intent.putExtra("image", imageUrl);
+                    if (user != null) {
+                        Intent intent = new Intent(mContext, ItemEdit.class);
+                        intent.putExtra("key",key);
+                        intent.putExtra("name",mName.getText().toString());
+                        intent.putExtra("quantity", mQuantity.getText().toString());
+                        intent.putExtra("storage", mStorage.getText().toString());
+                        intent.putExtra("expiryDate", mExpiryDate.getText().toString());
+                        intent.putExtra("image", imageUrl);
 
-                    mContext.startActivity(intent);
+                        mContext.startActivity(intent);
+                    } else {
+                        mContext.startActivity(new Intent (mContext, SignIn.class));
+                    }
                 }
             });
         }
@@ -130,5 +140,9 @@ public class RecyclerView_Config {
         public int getItemCount() {
             return itemList.size();
         }
+    }
+
+    public static void Logout() {
+        user = null;
     }
 }

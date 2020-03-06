@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -29,10 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -123,6 +121,7 @@ public class Expiration extends AppCompatActivity
 
                 String date = dayOfMonth + "/" + (month + 1) + "/" + year;
                 mDisplayDate.setText(date);
+                mDisplayDate.setGravity(Gravity.CENTER);
             }
         };
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +133,6 @@ public class Expiration extends AppCompatActivity
                 item.setStorage(spinnerStorage.getSelectedItem().toString());
                 item.setExpiryDate(mDisplayDate.getText().toString());
                 item.setImage(Scanner.imageUrl);
-                //uploadFile();
                 new FirebaseDatabaseHelper().addItem(item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<Item> items, List<String> keys) {
@@ -167,33 +165,5 @@ public class Expiration extends AppCompatActivity
             }
         });
     }
-/*
-    private void uploadFile() {
-        if (imageUri != null) {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-            + ".");
-           mUploadTask = fileReference.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Expiration.this, "Upload Successful", Toast.LENGTH_LONG).show();
-                            Upload upload = new Upload(editItemName.getText().toString());
-                            String uploadId = mDatabaseRef.push().getKey(); //New Entry with new id
-                            mDatabaseRef.child(uploadId).setValue(upload); // Take unique ID and set Data to upload file
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Expiration.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "No file", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
- */
 
 }

@@ -5,4 +5,7 @@
     <item
         android:id="@+id/new_item"
         android:title="@string/new_item" />
+    <item
+        android:id="@+id/Logout"
+        android:title="@string/Log_out" />
 </menu>

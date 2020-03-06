@@ -11,13 +11,17 @@ import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
 public class Fridge extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
+    private FirebaseAuth mAuth;
     private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,7 @@ public class Fridge extends AppCompatActivity {
         toolbar.setTitle("Fridge");
         setSupportActionBar(toolbar);
 
+        mAuth = FirebaseAuth.getInstance();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -38,27 +43,26 @@ public class Fridge extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.BarcodeScanner:
                         startActivity(new Intent(getApplicationContext()
-                                ,Scanner.class));
-                        overridePendingTransition(0,0);
+                                , Scanner.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.Fridge:
                         startActivity(new Intent(getApplicationContext()
-                                ,Fridge.class));
-                        overridePendingTransition(0,0);
+                                , Fridge.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.Freezer:
                         startActivity(new Intent(getApplicationContext()
-                                ,Freezer.class));
-                        overridePendingTransition(0,0);
+                                , Freezer.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.Pantry:
                         startActivity(new Intent(getApplicationContext()
-                                ,Pantry.class));
-                        overridePendingTransition(0,0);
+                                , Pantry.class));
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
@@ -71,7 +75,7 @@ public class Fridge extends AppCompatActivity {
             @Override
             public void DataIsLoaded(List<Item> items, List<String> keys) {
                 new RecyclerView_Config().setConfig(mRecyclerView, Fridge.this,
-                        items,keys);
+                        items, keys);
             }
 
             @Override
@@ -90,8 +94,17 @@ public class Fridge extends AppCompatActivity {
             }
         });
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
+        FirebaseUser user = mAuth.getCurrentUser();
         getMenuInflater().inflate(R.menu.manual, menu);
+        if (user != null) {
+            menu.getItem(0).setVisible(true);
+            menu.getItem(1).setVisible(true);
+        } else {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -101,6 +114,12 @@ public class Fridge extends AppCompatActivity {
             case R.id.new_item:
                 startActivity(new Intent (this, Expiration.class));
                 return  true;
+            case R.id.Logout:
+                mAuth.signOut();
+                invalidateOptionsMenu();
+                RecyclerView_Config.Logout();
+                startActivity(new Intent (this, SignIn.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

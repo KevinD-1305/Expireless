@@ -93,6 +93,4 @@
         app:layout_constraintEnd_toStartOf="@+id/expiration_date"
         app:layout_constraintTop_toBottomOf="@id/storage_txtView" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

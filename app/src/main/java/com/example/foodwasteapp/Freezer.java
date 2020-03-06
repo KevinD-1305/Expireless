@@ -10,12 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
 public class Freezer extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
+    private FirebaseAuth mAuth;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,8 @@ public class Freezer extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Freezer");
         setSupportActionBar(toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -88,7 +93,15 @@ public class Freezer extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        FirebaseUser user = mAuth.getCurrentUser();
         getMenuInflater().inflate(R.menu.manual, menu);
+        if(user != null) {
+            menu.getItem(0).setVisible(true);
+            menu.getItem(1).setVisible(true);
+        } else {
+            menu.getItem(0).setVisible(false);
+            menu.getItem(1).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -96,8 +109,14 @@ public class Freezer extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_item:
-            startActivity(new Intent (this, Expiration.class));
-            return  true;
+                startActivity(new Intent (this, Expiration.class));
+                return  true;
+            case R.id.Logout:
+                mAuth.signOut();
+                invalidateOptionsMenu();
+                RecyclerView_Config.Logout();
+                startActivity(new Intent (this, SignIn.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
