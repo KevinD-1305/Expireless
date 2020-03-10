@@ -13,18 +13,6 @@
         layout="@layout/toolbar"
         />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background= "@color/Expire"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation" />
-
     <ImageView
         android:id="@+id/ItemImage"
         android:layout_width="wrap_content"
@@ -93,26 +81,21 @@
         android:id="@+id/Update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="32dp"
         android:hint="@string/Update"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Back"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerStorage"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerStorage" />
 
     <Button
         android:id="@+id/Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="176dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="160dp"
         android:hint="@string/Back"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity" />
 
@@ -121,12 +104,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="150dp"
         android:hint="@string/Delete"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintLeft_toRightOf="@id/Back"
-        app:layout_constraintRight_toLeftOf="@id/Update"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
