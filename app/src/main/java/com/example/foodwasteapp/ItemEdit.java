@@ -110,7 +110,7 @@ public class ItemEdit extends AppCompatActivity {
                 item.setQuantity(spinnerQuantity.getSelectedItem().toString());
                 item.setStorage(spinnerStorage.getSelectedItem().toString());
                 item.setExpiryDate(mDisplayDate.getText().toString());
-
+                item.setImage(imageUrl);
                 new FirebaseDatabaseHelper().updateItem(key, item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<Item> items, List<String> keys) {

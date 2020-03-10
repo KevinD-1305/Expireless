@@ -102,6 +102,9 @@ public class RecyclerView_Config {
                     mExpiryDate.setTextColor(Color.parseColor("#B22222"));
                     mExpiryDate.setPaintFlags(mExpiryDate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
+                }  else if (daysToExpiry >= 4) {
+                    mExpiryDate.setTextColor(Color.parseColor("#FF6347"));
+
                 }
                     mName.setText(item.getName());
                     mQuantity.setText(item.getQuantity());
