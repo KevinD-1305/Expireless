@@ -117,11 +117,9 @@ public class Expiration extends AppCompatActivity
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Log.d(TAG, "onDateSet: dd/mm/yy: " + dayOfMonth + "/" + month + "/" + year);
-
-                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                mDisplayDate.setText(date);
-                mDisplayDate.setGravity(Gravity.CENTER);
+                    String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                    mDisplayDate.setText(date);
+                    mDisplayDate.setGravity(Gravity.CENTER);
             }
         };
         buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +129,12 @@ public class Expiration extends AppCompatActivity
                 item.setName(editItemName.getText().toString());
                 item.setQuantity(spinnerQuantity.getSelectedItem().toString());
                 item.setStorage(spinnerStorage.getSelectedItem().toString());
-                item.setExpiryDate(mDisplayDate.getText().toString());
+                if (mDisplayDate.getText().toString() == "") {
+                    Toast.makeText(Expiration.this, "Expiration date is NULL.", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    item.setExpiryDate(mDisplayDate.getText().toString());
+                }
                 item.setImage(Scanner.imageUrl);
                 new FirebaseDatabaseHelper().addItem(item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override

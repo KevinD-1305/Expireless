@@ -56,14 +56,14 @@
         android:layout_width="113dp"
         android:layout_height="57dp"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="32dp"
+        android:autofillHints="@string/quantity"
         android:entries="@array/Quantity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintRight_toLeftOf="@id/SpinnerQuantity"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expiration_date" />
+        app:layout_constraintTop_toBottomOf="@+id/quantity_txt" />
 
     <Spinner
         android:id="@+id/SpinnerStorage"
@@ -75,7 +75,7 @@
         android:entries="@array/Storage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/SpinnerQuantity"
-        app:layout_constraintTop_toBottomOf="@+id/expiration_date" />
+        app:layout_constraintTop_toBottomOf="@+id/storage_txt" />
 
     <Button
         android:id="@+id/Update"
@@ -109,5 +109,34 @@
         android:hint="@string/Delete"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity" />
+
+    <TextView
+        android:id="@+id/quantity_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/quantity"
+        app:layout_constraintBottom_toTopOf="@id/SpinnerQuantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expiration_date"
+        tools:ignore="MissingConstraints"
+        tools:text="@string/quantity" />
+
+    <TextView
+        android:id="@+id/storage_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="50dp"
+        android:text="@string/storage"
+        app:layout_constraintBottom_toTopOf="@id/SpinnerStorage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/quantity_txt"
+        app:layout_constraintTop_toBottomOf="@id/expiration_date"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints"
+        tools:text="@string/storage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

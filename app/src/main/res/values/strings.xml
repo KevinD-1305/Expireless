@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Expireless</string>
     <string name="scan_again">Scan Again</string>
-    <string name="select_expiration_date">Select Expiration Date</string>
+    <string name="select_expiration_date">Select Expiration Date:</string>
     <string name="quantity">Quantity</string>
     <string name="quantity_txt">Quantity: </string>
     <string name="Add">Add</string>

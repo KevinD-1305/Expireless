@@ -42,6 +42,7 @@ public class ItemEdit extends AppCompatActivity {
     private String key, name, quantity, storage, expiryDate;
     public static ImageView itemImage;
     public static String imageUrl;
+    public static Uri itemImageUri;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
 

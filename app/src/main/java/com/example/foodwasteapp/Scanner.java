@@ -39,7 +39,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.frame.Frame;
 import com.otaliastudios.cameraview.frame.FrameProcessor;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +56,6 @@ public class Scanner extends AppCompatActivity {
     private RequestQueue mQueue;
     public static String productName;
     public static String code;
-    public static ImageView itemImage;
     public static Bitmap item;
     public static String imageUrl;
 
@@ -219,7 +217,7 @@ public class Scanner extends AppCompatActivity {
                             productName = product.get("product_name").toString();
                             String servingSize = product.get("quantity").toString();
                             imageUrl = product.get("image_url").toString();
-                            createDialog(productName + "\n\n" + "Quantity: " + servingSize + "\n\n");
+                            createDialog(productName + "\n\n" + "Serving size: " + servingSize + "\n\n");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

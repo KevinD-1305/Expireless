@@ -79,7 +79,6 @@ public class RecyclerView_Config {
                 }
             });
         }
-        @SuppressLint("ResourceAsColor")
         public void bind(Item item, String key){
             String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
             String expiryDate = item.getExpiryDate();
