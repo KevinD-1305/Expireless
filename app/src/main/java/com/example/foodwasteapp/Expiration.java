@@ -139,9 +139,7 @@ public class Expiration extends AppCompatActivity
                 new FirebaseDatabaseHelper().addItem(item, new FirebaseDatabaseHelper.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<Item> items, List<String> keys) {
-
                     }
-
                     @Override
                     public void DataIsInserted() {
                         Toast.makeText(Expiration.this, "Item added Successfully", Toast.LENGTH_LONG).show();
@@ -150,9 +148,7 @@ public class Expiration extends AppCompatActivity
                     }
                     @Override
                     public void DataIsUpdated() {
-
                     }
-
                     @Override
                     public void DataIsDeleted() {
 
