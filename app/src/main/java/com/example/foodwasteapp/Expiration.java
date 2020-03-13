@@ -48,7 +48,6 @@ public class Expiration extends AppCompatActivity
     public static ImageView itemImage;
     public static Uri imageUri;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
