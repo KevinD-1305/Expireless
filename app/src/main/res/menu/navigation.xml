@@ -4,20 +4,20 @@
     <item
         android:id="@+id/BarcodeScanner"
         android:icon="@drawable/barcode"
-        android:title="Scanner"/>
+        android:title="@string/Scanner"/>
 
     <item
         android:id="@+id/Fridge"
         android:icon="@drawable/fridge"
-        android:title="Fridge" />
+        android:title="@string/Fridge" />
 
     <item
         android:id="@+id/Freezer"
         android:icon="@drawable/freezer"
-        android:title="Freezer" />
+        android:title="@string/Freezer" />
 
     <item
         android:id="@+id/Pantry"
         android:icon="@drawable/pantry"
-        android:title="Pantry" />
+        android:title="@string/Pantry" />
 </menu>

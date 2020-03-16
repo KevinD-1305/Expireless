@@ -18,6 +18,10 @@
     <string name="Password">Password</string>
     <string name="Sign_in">Sign In</string>
     <string name="Register">Register</string>
+    <string name="Fridge">Fridge</string>
+    <string name="Freezer">Freezer</string>
+    <string name="Scanner">Scanner</string>
+    <string name="Pantry">Pantry</string>
     <string name="Log_out">Log Out</string>
     <string name="new_item">New item (Manual)</string>
     <string-array name="Quantity">

@@ -31,6 +31,8 @@
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/navigation"
+        app:labelVisibilityMode="labeled"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

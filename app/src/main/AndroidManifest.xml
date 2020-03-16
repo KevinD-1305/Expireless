@@ -33,7 +33,9 @@
         <activity android:name=".Expiration" />
         <activity android:name=".Pantry" />
         <activity android:name=".Freezer" />
-        <activity android:name=".Fridge"/>
+        <activity android:name=".Fridge">
+
+        </activity>
         <activity android:name=".Tracker" />
         
         <service android:name=".Service.MyFirebaseMessagingService">

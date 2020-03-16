@@ -56,7 +56,7 @@
         android:layout_width="113dp"
         android:layout_height="57dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:autofillHints="@string/quantity"
         android:entries="@array/Quantity"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +69,8 @@
         android:id="@+id/SpinnerStorage"
         android:layout_width="120dp"
         android:layout_height="57dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         android:entries="@array/Storage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/SpinnerQuantity"
@@ -81,34 +80,40 @@
         android:id="@+id/Update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="44dp"
         android:hint="@string/Update"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerStorage" />
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerStorage"
+        app:layout_constraintVertical_bias="0.006" />
 
     <Button
         android:id="@+id/Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="176dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="160dp"
         android:hint="@string/Back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/Delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="50dp"
         android:hint="@string/Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerQuantity"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/quantity_txt"
